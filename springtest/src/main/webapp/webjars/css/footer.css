@@ -1,0 +1,25 @@
+@charset "UTF-8";
+#page-container {
+  position: relative;
+  min-height: 95vh;
+}
+
+#content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width:99%;
+  height: 2.5rem;   
+  color:black;   
+  text-align:right; 
+}
+.center {
+  margin: auto;
+  width: 60%;
+  border: 3px solid #73AD21;
+  padding: 10px;
+  text-align:center;
+}
