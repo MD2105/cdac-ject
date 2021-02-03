@@ -22,6 +22,7 @@
  <button type="button" ><a href="trainer-reg">Trainer Registration</a></button>
   <br><br>
   <button type="button"><a href="studreg">Student Registration</a></button>
+  <button type="button"><a href="course">Course Registration</a></button>
       <br><br>
       
       </div>

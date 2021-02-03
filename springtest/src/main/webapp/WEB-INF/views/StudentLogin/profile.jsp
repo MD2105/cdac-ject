@@ -45,8 +45,8 @@
   <div>
     <ul>
       <li><a class="active" href="#home">Upload</a></li>
-      <li><a href="#news">Notification</a></li>
-       <li><a href="/studentfile/showfiles">Submitted Assignments</a></li>
+      <li><a href="/studentfile/showassi">Show Assignments</a></li>
+       <li><a href="/studentfile/showfiles?student_prn=${sessionScope.Nm_prfl.getStudent_prn()}">Submitted Assignments</a></li>
       <li><a href="/studentfile/ingrade">Grades</a></li>
       <li style="float: right;"><a href="/studentfile/logout">Logout</a></li>
     </ul>
@@ -61,17 +61,22 @@
    </div>  
    
   <div style="margin-top: 80px; margin-left:130px"> 
-   <form enctype="multipart/form-data" action="upload" method="post">
+   <form enctype="multipart/form-data" action="upload" method="post" id="docform">
       <label>Enter Your PRN :</label>
        <input type="text"  value="${sessionScope.Nm_prfl.getStudent_prn()}" name="student_prn"/><br><br>
        <label>Enter Your Subject Name:</label>
-         <input type="text" name="course_id" required/><br><br>
+          <select name="course_id" id="docform">
+                          <c:forEach var="item" items="${clist}">
+                            <option value="${item.courseId}">${item.courseId}</option>
+                            </c:forEach></td>
+                        </select>
             <label>File Name Should be Your PRN and Should be in Zip Format</label>
             <input type="file"  name="document"  accept=“application/pdf,.zip,.rar,.7zip” required/><br>
          <input type="submit" value="Submit"/>
    </form>
   <h5 style="color:rgb(138, 255, 138);"><h3>${requestScope.msg}</h3> </h5> 
  </div>
+     
  <footer id="footer">
   <span style="padding:10px;float: right;">&copy;CDAC-DAC-FEB-2020 BATCH NO-40</span>
   </footer>

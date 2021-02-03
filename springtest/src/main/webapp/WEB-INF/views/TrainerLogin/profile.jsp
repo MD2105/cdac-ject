@@ -10,6 +10,7 @@
           href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
         <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
         <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+        <link  rel="stylesheet" href="/webjars/css/profile.css"/>
     
   </head>
   <body>
@@ -21,9 +22,9 @@
   				</div>
   				<div>
   				<ul class="nav navbar-nav navbar-right">
-  					<li><a href="#">Home</a></li>
-  					<li><a href="/user/showfiles">Show Assignments</a></li>
-  					<li><a href="#">Logout</a>
+  					<li><a href="/user/assingment?faculty_id=${fac.faculty_id}">Assignments</a></li>
+  					<li><a href="/user/showfile?faculty_id=${fac.faculty_id}">Show Assignments</a></li>
+  					<li><a href="/">Logout</a>
   				</ul>
   				</div>
   			</div>		
@@ -46,40 +47,14 @@
   </div>
   
   
-	  <div class="container" id="alreadyUploadedAssignmentDetails">
-	  	<h5>Previously uploaded assignments of yours</h5>
- 			<table class="table table-striped table-responsive table-bordered table-hover">
- 					<thead>
- 							<tr>
- 								<th>Sr.No</th>
- 								<th>Course</th>
- 								<th>Start Date</th>
- 								<th>End Date</th>
- 								<th>Assignment</th>
-  						   </tr>
-					</thead>
-					<tbody>
-							<c:forEach var="item" items="${list}">
-							
-								<tr>
-									<td>${item.assignment_id}</td>
-									<td>${item.course_id}</td>
-									<td>${item.assignment_issued_date}</td>
-									<td>${item.assignment_end_date}</td>
-									<td><a href="download?id=${item.assignment_id}">${item.doc_name}</a></td>
-										
-								</tr>
-							</c:forEach>
-					</tbody> 
- 			</table>
- 	</div>
+	
  	<div class="container">
  	       <form action="upload" enctype="multipart/form-data" method="post" id="assiform">
 				<table class="table table-bordered table-responsive">
 					<thead>
 					<tr>
 					    <th>enter your id</th>
-						<th>Subject</th>
+						<th>Choose a Subject</th>
 						<th>Start Date</th>
 						<th>End Date</th>
 						<th>File </th>
@@ -87,17 +62,26 @@
 					</tr>
 					</thead>
 					<tbody>
-					        <td><input type="text" name="faculty_id"/></td>
-					        <td><input type="text" name="course_id"/></td>
-				             <td><input type="date" name="assignment_issued_date"/></td>
-								<td><input type="date" name="end_date"/></td>
-								<td><input type="file" name="assign_file"/></td>  
+					        <td><input type="text"  value ="${fac.faculty_id}" name="faculty_id"/></td>
+					       <td> <label for="grade"></label>
+					        
+                          <select name="course_id" id="assiform">
+                          <c:forEach var="item" items="${course}">
+                            <option value="${item.courseId}">${item.courseId}</option>
+                            </c:forEach></td>
+                        </select>
+                          
+				             <td><input type="date" name="assignment_issued_date" required/></td>
+								<td><input type="date" name="end_date" required/></td>
+								<td><input type="file" name="assign_file" required/></td>  
 								<td><input type="submit" value="submit"></input></td>
-						
+						       
 					</tbody>
 				</table> 	
 			</form>
 				<%--  <input type="submit" value="submit"></input> --%>	
  	</div>
+
+ 	
 </body>
 </html>

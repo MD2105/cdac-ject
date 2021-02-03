@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.dao.ICourse;
 import com.app.dao.IStudentDao;
+import com.app.pojos.Courses;
 import com.app.pojos.DataStudent;
 import com.app.pojos.Trainer;
 import com.app.pojos.assignments;
@@ -35,6 +38,8 @@ public class TrainerController {
     @Autowired
     private IStudentDao dao;
     @Autowired
+    private ICourse cdao;
+    @Autowired
     private AssignmentRepository arepo;
     @Autowired
 	private DocumentRepository repo;
@@ -48,19 +53,24 @@ public class TrainerController {
     
     
     @PostMapping("/login")
-    public String Auth_User(@ModelAttribute("auth") Trainer t,Model map)
+    public String Auth_User(@ModelAttribute("auth") Trainer t,HttpSession hp,Model c,Model profile,Model map)
     {
     	Boolean value = false;
     	System.out.println("In post login ");
          String name = t.getFaculty_email();
          String pass = t.getFaculty_password();
     	value = dao.AuthenticateUser(name,pass);
+    	Trainer p = dao.getProfileTrainer(name, pass);
+    	
+    	  List <Courses> coursefac= cdao.getCourses(String.valueOf(p.getFaculty_id()));
     	System.out.print(value);
     	
     	if(value) 
     	{
-    		List<assignments> listdoc = arepo.findAll();
-    		map.addAttribute("list",listdoc);
+    		//List<assignments> listdoc = arepo.findAll(String.valueOf(p.getFaculty_id()));
+    		//map.addAttribute("list",listdoc);
+    		hp.setAttribute("course",coursefac);
+    		hp.setAttribute("fac",p);
     		return "/TrainerLogin/profile";
     	}
     else
@@ -71,7 +81,7 @@ public class TrainerController {
     }
     
    @PostMapping("/upload")
-   public void AssignmentUpload(@RequestParam("assign_file") MultipartFile mfile,@RequestParam String faculty_id,@RequestParam String course_id,
+   public String AssignmentUpload(@RequestParam("assign_file") MultipartFile mfile,@RequestParam String faculty_id,@RequestParam String course_id,
 		                           @RequestParam String assignment_issued_date,@RequestParam String end_date) throws IOException 
    
    
@@ -88,7 +98,8 @@ public class TrainerController {
 	   asfile.setCourse_id(course_id);
 	   asfile.setFaculty_id(faculty_id);
 	   arepo.save(asfile);
-	   
+	  
+	   return "/TrainerLogin/profile";
    }
     
    @GetMapping("/download")
@@ -112,18 +123,30 @@ public class TrainerController {
    }
    
    @GetMapping("/showfiles")
-	public String viewHomepage(Model map) {
-		List<DataStudent> listdoc = repo.findAll();
+	public String viewHomepage(@RequestParam String course_id,Model map) {
+	  
+		List<DataStudent> listdoc = repo.findAllc(course_id);
 		map.addAttribute("list",listdoc);
 		return "/TrainerLogin/Submittedfiles";
 	}
-    
+    @GetMapping("/showfile")
+    public String showpage(@RequestParam String faculty_id,HttpSession h) {
+    	List <Courses> coursefac= cdao.getCourses(faculty_id);
+    	h.setAttribute("c",coursefac);
+    	return "/TrainerLogin/Submittedfiles";
+    }
    @GetMapping("/grade")
    public String PuttingGrade(@RequestParam String grade,@RequestParam String student_prn,@RequestParam String course_id,Model map) {
-	  dao.PuttingGrade(grade, student_prn);
-	   map.addAttribute("msg","Uploaded");
+	  dao.PuttingGrade(grade, student_prn,course_id);
+	  List<DataStudent> listdoc = repo.findAllc(course_id);
+		map.addAttribute("list",listdoc);
 	   return "/TrainerLogin/Submittedfiles";
    }
-   
+ @GetMapping("/assingment")
+ public String as(@RequestParam String faculty_id,Model map) {
+	 List<assignments> listdoc = arepo.findAll(faculty_id);
+	 map.addAttribute("list",listdoc);
+	 return "/TrainerLogin/UploadedAssign";
+ }
  
 }

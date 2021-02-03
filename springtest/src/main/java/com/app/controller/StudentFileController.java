@@ -25,10 +25,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.multipart.MultipartFile;
 
-
+import com.app.dao.ICourse;
 import com.app.dao.IStudentDao;
+import com.app.pojos.Courses;
 import com.app.pojos.DataStudent;
 import com.app.pojos.Students;
+import com.app.pojos.assignments;
+import com.app.repo.AssignmentRepository;
 import com.app.repo.DocumentRepository;
 
 @Controller
@@ -40,10 +43,14 @@ public class StudentFileController {
 	@Autowired
 	  private IStudentDao dao;
 	@Autowired
+	private ICourse cdao;
+	@Autowired
+	private AssignmentRepository ar;
+	@Autowired
 	private DocumentRepository repo;
 	@GetMapping("/showfiles")
-	public String viewHomepage(Model map) {
-		List<DataStudent> listdoc = repo.findAll();
+	public String viewHomepage(@RequestParam String student_prn,Model map) {
+		List<DataStudent> listdoc = repo.findAlla(student_prn);
 		map.addAttribute("list",listdoc);
 		return "/StudentLogin/Submittedfiles";
 	}
@@ -65,8 +72,7 @@ public class StudentFileController {
         doc.setAssignment_document(mfile.getBytes());
     	doc.setUploadtime( new Date());
     	repo.save(doc);
-    		
-    	return "redirect:/studentfile/showfiles";
+    	return "/StudentLogin/profile";	
     	
     }
     
@@ -100,7 +106,7 @@ public class StudentFileController {
     
     
     @PostMapping("/login")
-    public String Auth_User(@ModelAttribute("auths") Students s,Model map,HttpSession h)
+    public String Auth_User(@ModelAttribute("auths") Students s,Model map,HttpSession h,Model course)
     {
     	Boolean value = false;
     	System.out.println("In post login student ");
@@ -110,8 +116,10 @@ public class StudentFileController {
     	System.out.print(value);
     	
     	if(value) {
+    		List<Courses> clist = cdao.getAllCourses();
     		 s = dao.getProfile(name, pass);
     		h.setAttribute("Nm_prfl",s);
+    		h.setAttribute("clist",clist);
     		return "/StudentLogin/profile";
     	}
     	else {
@@ -128,7 +136,9 @@ public class StudentFileController {
     	 return "/StudentLogin/login";
     }
     @RequestMapping("/ingrade")
-    public String ingradeform() {
+    public String ingradeform(HttpSession h) {
+    	List<Courses> clist = cdao.getAllCourses();
+    	h.setAttribute("clist",clist);
     	return "/StudentLogin/ObtainedGrade";
     }
     
@@ -136,12 +146,20 @@ public class StudentFileController {
     public String ObtainedGrade(@RequestParam String course_id,@RequestParam String student_prn,Model map) {
     	
     	System.out.print(course_id+""+student_prn);
-    	String grade  =dao.getGrade(course_id,student_prn);
+    	String grade =dao.getGrade(course_id,student_prn);
     	 map.addAttribute("msg",grade);
 	        return "/StudentLogin/ObtainedGrade";
  	      
  	    }
-         
+    @GetMapping("/showassi")
+    public String allassignment(Model map)
+    {
+    	List<assignments> list = ar.findAllAssi();
+    	map.addAttribute("list",list);
+    	return  "/StudentLogin/allassignment";
+    }
+    
+    
     }
     
     

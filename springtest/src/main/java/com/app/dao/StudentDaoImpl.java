@@ -82,14 +82,19 @@ public class StudentDaoImpl implements IStudentDao {
 		return t;
 	}
 
-
+	@Override
+	public Trainer getProfileTrainer(String name, String pass) {
+		String jpql = "select t from Trainer t where t.faculty_email=:nam and t.faculty_password=:password";
+		Trainer t = mgr.createQuery(jpql,Trainer.class).setParameter("nam", name).setParameter("password", pass).getSingleResult();
+		return t;
+	}
 
 	@Override
-	public boolean PuttingGrade(String grade,String student_prn) {
+	public boolean PuttingGrade(String grade,String student_prn,String course_id) {
 	   
   try {
-	  String jpql = "update DataStudent d set d.grade=:grad where d.student_prn=:studentno";
-  int d = mgr.createQuery(jpql).setParameter("grad",grade).setParameter("studentno",student_prn).executeUpdate();
+	  String jpql = "update DataStudent d set d.grade=:grad where d.student_prn=:studentno and d.course_id=:cou";
+  int d = mgr.createQuery(jpql).setParameter("grad",grade).setParameter("studentno",student_prn).setParameter("cou",course_id).executeUpdate();
 	      if(d!=0)
 	      {
 	    	  return true;
