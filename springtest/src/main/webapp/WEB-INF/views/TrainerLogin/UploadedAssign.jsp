@@ -14,6 +14,21 @@
 </head>
 <body>
 <img src="/webjars/img/1.jpg"/><br>
+<nav class="navbar navbar-inverse">
+  			<div class="container">
+  			<!-- the followin contains two types of div one for header and second for other links -->
+  				<div class="navbar-header">
+  					<a href="#" class="navbar-brand">Trainer Profile</a>
+  				</div>
+  				<div>
+  				<ul class="nav navbar-nav navbar-right">
+  					<li><a href="/user/assingment?faculty_id=${fac.faculty_id}">Assignments</a></li>
+  					<li><a href="/user/showfile?faculty_id=${fac.faculty_id}">Show Assignments</a></li>
+  					<li><a href="/">Logout</a>
+  				</ul>
+  				</div>
+  			</div>		
+  		</nav>
   <div class="container" id="alreadyUploadedAssignmentDetails">
 	  	<h5>Previously uploaded assignments of yours</h5>
  			<table class="table table-striped table-responsive table-bordered table-hover">

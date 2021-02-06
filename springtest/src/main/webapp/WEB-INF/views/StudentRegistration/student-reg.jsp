@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Creative Colorlib Signup Form</title>
+<title>Student Registration</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -16,16 +16,17 @@
 </head>
 <body>
 	<!-- main -->
+	<h2>${requestScope.msg}</h2>
 	<div class="main-w3layouts wrapper">
 		<h1>Student SignUp Form</h1>
 		<div class="main-agileinfo">
 			<div class="agileits-top">
 				<form action="stuadd" method="get">
-					<input class="text" type="text"  placeholder="Enter Your PRN" name="student_prn" required="">
+					<input class="text" type="text"  placeholder="Enter Your PRN" name="student_prn" required/>
 					<label>PRN SHOULD BE (EG:341XX)</label>
-					<input class="text email" type="text"  placeholder="Enter Your Name" name="student_name"required="">
-					<input class="text" type="email"  placeholder="Enter Your Email" name="student_email"required="">
-					<input class="text w3lpass" type="password"  placeholder="Confirm Password" name="student_password" required="">
+					<input class="text email" type="text"  placeholder="Enter Your Name" name="student_name"required/>
+					<input class="text" type="email"  placeholder="Enter Your Email" name="student_email"required/>
+					<input class="text w3lpass" type="password"  placeholder="Confirm Password" name="student_password" required/>
 					
 				
 					<input type="submit" value="SIGNUP">

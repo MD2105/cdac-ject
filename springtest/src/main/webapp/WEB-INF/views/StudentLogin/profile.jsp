@@ -6,13 +6,15 @@
 <html >
   <head>
   <title>Student-Profile</title>
-    <!-- Required meta tags -->
-    <!-- Bootstrap CSS -->
+    
     <link  rel="stylesheet" href="/webjars/css/navbar.css"/>
     <link  rel="stylesheet" href="/webjars/css/profile.css"/>
     <link  rel="stylesheet" href="/webjars/css/footer.css"/>
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
     <link  rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.css"/>
+    <script src="/webjars/js/compiler.js"></script>
+     <script src="/webjars/js/uploadbar.js"></script>
+    <script src="/webjars/jquery/jquery-3.5.1.min.js"></script>
      <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -31,17 +33,9 @@
     </style>
   </head>
   <body >
-  <div class="text-center" >
+   <div class="text-center" >
   <img src="/webjars/img/1.jpg"/>
   </div>
-    <div>
-      <c:forEach  var="c" items="${list}">
-        <div>
-           <a href="download?id=${c.assignment_id}">${c.doc_name}</a> <br>
-        </div>  
-      </c:forEach>
-  
-     
   <div>
     <ul>
       <li><a class="active" href="#home">Upload</a></li>
@@ -60,7 +54,7 @@
     <p style="color:pink;">Email :${sessionScope.Nm_prfl.getStudent_email()}</p>
    </div>  
    
-  <div style="margin-top: 80px; margin-left:130px"> 
+  <div style="margin-top: 80px; margin-left:130px;"> 
    <form enctype="multipart/form-data" action="upload" method="post" id="docform">
       <label>Enter Your PRN :</label>
        <input type="text"  value="${sessionScope.Nm_prfl.getStudent_prn()}" name="student_prn"/><br><br>
@@ -68,17 +62,31 @@
           <select name="course_id" id="docform">
                           <c:forEach var="item" items="${clist}">
                             <option value="${item.courseId}">${item.courseId}</option>
-                            </c:forEach></td>
+                            </c:forEach>
                         </select>
-            <label>File Name Should be Your PRN and Should be in Zip Format</label>
+            <br><label>File Name Should be Your PRN and Should be in Zip Format</label>
             <input type="file"  name="document"  accept=“application/pdf,.zip,.rar,.7zip” required/><br>
          <input type="submit" value="Submit"/>
    </form>
-  <h5 style="color:rgb(138, 255, 138);"><h3>${requestScope.msg}</h3> </h5> 
- </div>
-     
- <footer id="footer">
-  <span style="padding:10px;float: right;">&copy;CDAC-DAC-FEB-2020 BATCH NO-40</span>
-  </footer>
+   </div>
+   <br></br>
+   <div style="margin-left:130px;">
+     <h2>Compiler or Create Your Code Here !!</h2>
+   <button id="hide">Hide Compiler</button>
+   <button id="show">Show Compiler</button>
+  </div>
+  <div class="c"><div class="sec-widget" data-widget="f7bcfb1eea496fbc9da4ccc8203c05a6"></div></div>
   </body>
+  <script>
+  $(document).ready(function(){
+	  $("#hide").click(function(){
+	    $(".c").hide();
+	    
+	  });
+	  $("#show").click(function(){
+	    $(".c").show();
+	    
+	  });
+	});
+</script>
 </html>

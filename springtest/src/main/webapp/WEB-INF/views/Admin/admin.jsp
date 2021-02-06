@@ -17,7 +17,7 @@
    <div id="content-wrap">
 <img src="/webjars/img/1.jpg"/>
 <br><br>
-<span style="text-align:center;"><h2>Admin</h2></span>
+<span style="text-align:center;"> <h2>Admin</h2></span>
 <div class="center" style="margin-top:40px;">
  <button type="button" ><a href="trainer-reg">Trainer Registration</a></button>
   <br><br>

@@ -23,7 +23,7 @@
       <li style="float: right;"><a href="/studentfile/logout">Logout</a></li>
     </ul>
   </div>
-  <div class="container" id="alreadyUploadedAssignmentDetails">
+  <div class="container">
 	  	<h5>Previously uploaded assignments of yours</h5>
  			<table class="table table-striped table-responsive table-bordered table-hover">
  					<thead>
@@ -51,5 +51,6 @@
 							</c:forEach>
 					</tbody> 
  			</table>
+ 			</div>
 </body>
 </html>

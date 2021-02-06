@@ -12,7 +12,23 @@
         <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
 </head>
 <body>
+
 <img src="/webjars/img/1.jpg"/><br><br>
+<nav class="navbar navbar-inverse">
+  			<div class="container">
+  			
+  				<div class="navbar-header">
+  					<a href="#" class="navbar-brand">Trainer Profile</a>
+  				</div>
+  				<div>
+  				<ul class="nav navbar-nav navbar-right">
+  					<li><a href="/user/assingment?faculty_id=${fac.faculty_id}">Assignments</a></li>
+  					<li><a href="/user/showfile?faculty_id=${fac.faculty_id}">Show Assignments</a></li>
+  					<li><a href="/">Logout</a>
+  				</ul>
+  				</div>
+  			</div>		
+  		</nav>
 <form id="file" action="showfiles">
                           <label>Choose Subject to display assignment for that subject</label>
                            <select name="course_id" id="file">
@@ -22,7 +38,7 @@
                         </select>
                         <td><input type="submit" value="submit"></input></td>
 </form>
-  <div class="container" id="alreadyUploadedAssignmentDetails">
+  <div class="container">
 	  	<h5>Previously uploaded assignments of yours</h5>
  			<table class="table table-striped table-responsive table-bordered table-hover">
  					<thead>
@@ -50,11 +66,11 @@
 									<td><input type="submit" name="Submit"/>
 									<td><input type="hidden" value="${item.student_prn}"name="student_prn"/>
 									<td><input type="hidden" value="${item.course_id}" name="course_id"/>
-									${requestScope.msg}
 									</form>	
 								</tr>
 							</c:forEach>
 					</tbody> 
  			</table>
+ 			</div>
 </body>
 </html>

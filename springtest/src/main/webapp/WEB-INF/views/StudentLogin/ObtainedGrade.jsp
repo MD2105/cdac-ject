@@ -26,10 +26,11 @@
           <select name="course_id" id="grade">
                           <c:forEach var="item" items="${clist}">
                             <option value="${item.courseId}">${item.courseId}</option>
-                            </c:forEach></td>
+                            </c:forEach>
                         </select>
        <input type="submit" name="Submit"/>
       </form>
       <h2>${requestScope.msg}</h2>
+    <a href="  https://4b56e93b.widgets.sphere-engine.com/lp?hash=jzRkMMCB19">Solve Question</a>
 </body>
 </html>

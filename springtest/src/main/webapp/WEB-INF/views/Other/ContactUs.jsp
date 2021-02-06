@@ -3,7 +3,7 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-<head>
+<head>  
 <meta charset="UTF-8">
     <title>Contact Us</title>
     <style>
@@ -94,8 +94,8 @@
         </div>
         <div class="box">
             <p>Javed Y Soudagar</p>
-            <img src="/webjars/img/javed.jpg"/ height="175" width="110">
-            <h5>email@:javedsaudagar17@gmail.com</h5>
+            <img src="/webjars/img/javed.jpg" height="175" width="110">
+            <h5>email@:javedsaudagar17@gmail.com </h5>
             
         </div>
         <div class="box">
@@ -108,9 +108,9 @@
     </div>
     <div><p>Write to us here:</p></div>
     <div class="msg">
-        <form action="mailto: cdac-assignment-evaluation-sys.com"  method="POST" enctype="text/plain">
-        <textarea  class="msg" name="message" rows="5" col="150"></textarea>
-        <input  class="btn" type="submit" value="Send">
+        <form action="mailto:onlineassignmentsystemcdac@gmail.com"  method="POST" enctype="text/plain">
+        <textarea  class="msg" name="message" rows="5" cols="50"></textarea>
+        <button type="submit" class="btn btn-primary">Send</button>
     </form>
     </div>
 </body>
