@@ -52,6 +52,7 @@
 </form>
 
 <footer id="footer">
+    <a href="/">Back to Home</a>
    <span style="padding:10px">@CDAC-DAC-FEB-2020 BATCH NO-40</span>
    </footer>
 </body>

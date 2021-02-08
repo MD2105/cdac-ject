@@ -1,6 +1,6 @@
 package com.app.dao;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -19,6 +19,8 @@ public class CourseDaoImple implements ICourse {
 	  
 	  @PersistenceContext
 		private EntityManager mgr;
+	  
+	  
 	@Override
 	public List<Courses> getCourses(String faculty_id) {
 		String jpql = "select c from Courses c where c.faculty_id=:faculty";

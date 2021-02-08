@@ -1,7 +1,10 @@
 <%@ page language="java" 
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+  <% response.setHeader("Cache-Control","no-cache,no store,must-revalidate");
+         response.setHeader("Pragma","no=cache");
+         if(session.getAttribute("Nm_prfl")==null)
+         response.sendRedirect("login");%>
 <!DOCTYPE html>
 <html >
   <head>
@@ -13,7 +16,7 @@
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
     <link  rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.css"/>
     <script src="/webjars/js/compiler.js"></script>
-     <script src="/webjars/js/uploadbar.js"></script>
+     
     <script src="/webjars/jquery/jquery-3.5.1.min.js"></script>
      <style>
       .bd-placeholder-img {
@@ -42,7 +45,7 @@
       <li><a href="/studentfile/showassi">Show Assignments</a></li>
        <li><a href="/studentfile/showfiles?student_prn=${sessionScope.Nm_prfl.getStudent_prn()}">Submitted Assignments</a></li>
       <li><a href="/studentfile/ingrade">Grades</a></li>
-      <li style="float: right;"><a href="/studentfile/logout">Logout</a></li>
+      <li style="float: right;"><a href="/">Logout</a></li>
     </ul>
   </div>
   
@@ -68,6 +71,7 @@
             <input type="file"  name="document"  accept=“application/pdf,.zip,.rar,.7zip” required/><br>
          <input type="submit" value="Submit"/>
    </form>
+   <h2>${requestScope.msg}</h2>
    </div>
    <br></br>
    <div style="margin-left:130px;">

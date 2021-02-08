@@ -21,13 +21,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dao.ICourse;
-import com.app.dao.IStudentDao;
+
 import com.app.pojos.Courses;
 import com.app.pojos.DataStudent;
 import com.app.pojos.Trainer;
 import com.app.pojos.assignments;
 import com.app.repo.AssignmentRepository;
 import com.app.repo.DocumentRepository;
+import com.app.service.ITrainerService;
 
 @Controller
 @RequestMapping("/user")
@@ -35,8 +36,10 @@ public class TrainerController {
     public TrainerController() {
     	System.out.println("In User Controller");
     }
+    
+    Trainer trevisit = new Trainer();
     @Autowired
-    private IStudentDao dao;
+    private ITrainerService tserv;
     @Autowired
     private ICourse cdao;
     @Autowired
@@ -59,25 +62,35 @@ public class TrainerController {
     	System.out.println("In post login ");
          String name = t.getFaculty_email();
          String pass = t.getFaculty_password();
-    	value = dao.AuthenticateUser(name,pass);
-    	Trainer p = dao.getProfileTrainer(name, pass);
-    	
-    	  List <Courses> coursefac= cdao.getCourses(String.valueOf(p.getFaculty_id()));
-    	System.out.print(value);
-    	
+    	 value = tserv.AuthenticateTrainer(name,pass);
+    	 System.out.print(value);
     	if(value) 
     	{
-    		//List<assignments> listdoc = arepo.findAll(String.valueOf(p.getFaculty_id()));
-    		//map.addAttribute("list",listdoc);
+    		trevisit.setFaculty_email(name);
+    		trevisit.setFaculty_password(pass);
+    		Trainer p = tserv.getProfileTrainer(name, pass);
+       	    List <Courses> coursefac= cdao.getCourses(String.valueOf(p.getFaculty_id()));
     		hp.setAttribute("course",coursefac);
     		hp.setAttribute("fac",p);
     		return "/TrainerLogin/profile";
     	}
     else
     	{
-    	map.addAttribute("msg","Invalid Username/password...");
+    	
+    	   map.addAttribute("msg","Invalid Username/password...");
     	   return "/TrainerLogin/login";
         }
+    }
+    
+    @GetMapping("/trevisit")
+    public String trevisit(HttpSession hp)
+    {
+    	Trainer p = tserv.getProfileTrainer(trevisit.getFaculty_email(),trevisit.getFaculty_password());
+   	    List <Courses> coursefac= cdao.getCourses(String.valueOf(p.getFaculty_id()));
+		hp.setAttribute("course",coursefac);
+		hp.setAttribute("fac",p);
+		return "/TrainerLogin/profile";
+ 	   
     }
     
    @PostMapping("/upload")
@@ -122,6 +135,7 @@ public class TrainerController {
      
    }
    
+   
    @GetMapping("/showfiles")
 	public String viewHomepage(@RequestParam String course_id,Model map) {
 	  
@@ -137,7 +151,7 @@ public class TrainerController {
     }
    @GetMapping("/grade")
    public String PuttingGrade(@RequestParam String grade,@RequestParam String student_prn,@RequestParam String course_id,Model map) {
-	  dao.PuttingGrade(grade, student_prn,course_id);
+	  tserv.PuttingGrade(grade, student_prn,course_id);
 	  List<DataStudent> listdoc = repo.findAllc(course_id);
 		map.addAttribute("list",listdoc);
 	   return "/TrainerLogin/Submittedfiles";

@@ -11,10 +11,20 @@
         <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
         <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
         <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+        <link  rel="stylesheet" href="/webjars/css/navbar.css"/>
 
     <title>Trainer Registration</title>
   </head>
   <body class="text-center">
+  <div>
+    <ul>
+      
+      <li><a href="/">Home</a></li>
+       <li><a href="/admin/adminview">Admin Page</a></li>
+      <li><a href="/studentfile/login">Student Login</a></li>
+      <li><a href="/user/login">Trainer Login</a></li>
+    </ul>
+  </div>
   <img src="/webjars/img/1.jpg"/>
     <h1>Fill the Detail of Trainer</h1>
     <div class="container mt-5">
@@ -35,7 +45,7 @@
     <label for="Password" class="form-label">Enter Password</label>
     <input type="password" class="form-control" id="Password" name="faculty_password">
   </div>
-  
+  <br>
   <div class="container text-center">
   <button type="submit" class="btn btn-primary">Submit</button>
   </div>

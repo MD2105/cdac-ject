@@ -8,12 +8,14 @@ import java.util.Optional;
 
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.repository.query.Param;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -26,13 +28,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dao.ICourse;
-import com.app.dao.IStudentDao;
 import com.app.pojos.Courses;
 import com.app.pojos.DataStudent;
 import com.app.pojos.Students;
 import com.app.pojos.assignments;
 import com.app.repo.AssignmentRepository;
 import com.app.repo.DocumentRepository;
+import com.app.service.IStudentService;
 
 @Controller
 @RequestMapping("/studentfile")
@@ -40,8 +42,9 @@ public class StudentFileController {
 	public StudentFileController() {
 		System.out.println("In file");
 	}
+	Students srevisit = new Students();
 	@Autowired
-	  private IStudentDao dao;
+	  private IStudentService dao;
 	@Autowired
 	private ICourse cdao;
 	@Autowired
@@ -56,15 +59,10 @@ public class StudentFileController {
 	}
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("document") MultipartFile mfile,@RequestParam String student_prn,@RequestParam String course_id) throws IOException
+    public String uploadFile(@RequestParam("document") MultipartFile mfile,@RequestParam String student_prn,@RequestParam String course_id,Model map) throws IOException
     {
     	System.out.println(student_prn);
     	String files = StringUtils.cleanPath(mfile.getOriginalFilename());
-    	System.out.print(mfile.getContentType());
-    	System.out.print(mfile.getInputStream());
-    	System.out.print(mfile.getResource());
-    	System.out.print(mfile.getContentType());
-    	//System.out.print(mfile.transferTo();
     	DataStudent doc = new DataStudent();
     	doc.setStudent_prn(student_prn);
     	doc.setCourse_id(course_id);
@@ -72,6 +70,7 @@ public class StudentFileController {
         doc.setAssignment_document(mfile.getBytes());
     	doc.setUploadtime( new Date());
     	repo.save(doc);
+    	map.addAttribute("msg","Uploaded"+doc.getDoc_name());
     	return "/StudentLogin/profile";	
     	
     }
@@ -84,11 +83,12 @@ public class StudentFileController {
     		throw new Exception("Could not fine");
     		
     	}
+    	
     	DataStudent docu = result.get();
-    response.setContentType("application/octet-stream");
-    String headerKey = "Content-Disposition";
-    String headerValue = "attachment; filename="+docu.getDoc_name();
-    response.setHeader(headerKey, headerValue);
+       response.setContentType("application/octet-stream");
+       String headerKey = "Content-Disposition";
+       String headerValue = "attachment; filename="+docu.getDoc_name();
+        response.setHeader(headerKey, headerValue);
     
     ServletOutputStream outstream = response.getOutputStream();
       outstream.write(docu.getAssignment_document());
@@ -106,7 +106,7 @@ public class StudentFileController {
     
     
     @PostMapping("/login")
-    public String Auth_User(@ModelAttribute("auths") Students s,Model map,HttpSession h,Model course)
+    protected String Auth_User(@ModelAttribute("auths") Students s,Model map,HttpSession h,Model course)
     {
     	Boolean value = false;
     	System.out.println("In post login student ");
@@ -114,8 +114,9 @@ public class StudentFileController {
          String pass = s.getStudent_password();
     	   value = dao.AuthenticateStudent(name,pass);
     	System.out.print(value);
-    	
     	if(value) {
+    		srevisit.setStudent_email(name);
+    		srevisit.setStudent_password(pass);
     		List<Courses> clist = cdao.getAllCourses();
     		 s = dao.getProfile(name, pass);
     		h.setAttribute("Nm_prfl",s);
@@ -127,17 +128,27 @@ public class StudentFileController {
     	   return "/StudentLogin/login";
     }
   } 
-   
-    @RequestMapping("/logout")
-    public String Logout(HttpSession h,Model map) {
+   @GetMapping("/revisit")
+   public String revisit(HttpSession h) {
+	   List<Courses> clist = cdao.getAllCourses();
+		 Students s = dao.getProfile(srevisit.getStudent_email(),srevisit.getStudent_password());
+		h.setAttribute("Nm_prfl",s);
+		h.setAttribute("clist",clist);
+		return "/StudentLogin/profile";
+	  
+   }
+    @GetMapping("/logout")
+    public String Logout(HttpSession h,Model map,HttpServletRequest response) {
     	map.addAttribute("msg","Logged out");
     	System.out.print(h.isNew());
+    	
     	h.invalidate();
-    	 return "/StudentLogin/login";
+    	return "redirect:/";
     }
     @RequestMapping("/ingrade")
     public String ingradeform(HttpSession h) {
     	List<Courses> clist = cdao.getAllCourses();
+      
     	h.setAttribute("clist",clist);
     	return "/StudentLogin/ObtainedGrade";
     }
@@ -151,6 +162,7 @@ public class StudentFileController {
 	        return "/StudentLogin/ObtainedGrade";
  	      
  	    }
+    
     @GetMapping("/showassi")
     public String allassignment(Model map)
     {
@@ -160,7 +172,7 @@ public class StudentFileController {
     }
     
     
-    }
+ }
     
     
 

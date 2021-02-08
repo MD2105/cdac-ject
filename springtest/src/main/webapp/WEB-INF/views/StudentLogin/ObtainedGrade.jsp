@@ -12,7 +12,7 @@
 <img src="/webjars/img/1.jpg"/>
   <div>
     <ul>
-      <li><a class="active" href="#home">Upload</a></li>
+      <li><a class="active" href="/studentfile/revisit">Upload</a></li>
       <li><a href="#news">Notification</a></li>
        <li><a href="/studentfile/showfiles?student_prn=${sessionScope.Nm_prfl.getStudent_prn()}">Submitted Assignments</a></li>
       <li><a href="/studentfile/ingrade">Grades</a></li>

@@ -62,8 +62,19 @@
         justify-content: top;
     }
     </style>
+   
+   <link  rel="stylesheet" href="/webjars/css/navbar.css"/>
 </head>
 <body>
+<div>
+    <ul>
+      
+      <li><a href="/">Home</a></li>
+       <li><a href="/admin/adminview">Admin Page</a></li>
+      <li><a href="/studentfile/login">Student Login</a></li>
+      <li><a href="/user/login">Trainer Login</a></li>
+    </ul>
+  </div>
     <img src="/webjars/img/1.jpg"/>
     <h2>Contact Us</h2><hr>
     <div class="container">

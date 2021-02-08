@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%session.invalidate();%>
+      
 <!doctype html>
 <html lang="en">
   <head>
@@ -51,6 +51,7 @@
     <p class="mt-5 mb-3 text-muted">&copy;CDAC_FEB</p>
 </form>
 <footer id="footer" >
+    <a href="/">Back to Home</a>
    <span >&copy;CDAC-DAC-FEB-2020 BATCH NO-40</span>
    </footer>
 </body>

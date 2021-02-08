@@ -13,24 +13,28 @@
 </head>
 <body>
 
-<img src="/webjars/img/1.jpg"/><br><br>
+
 <nav class="navbar navbar-inverse">
   			<div class="container">
   			
   				<div class="navbar-header">
-  					<a href="#" class="navbar-brand">Trainer Profile</a>
+  					<a href="/user/trevisit" class="navbar-brand">Trainer Profile</a>
   				</div>
   				<div>
   				<ul class="nav navbar-nav navbar-right">
   					<li><a href="/user/assingment?faculty_id=${fac.faculty_id}">Assignments</a></li>
-  					<li><a href="/user/showfile?faculty_id=${fac.faculty_id}">Show Assignments</a></li>
+  					<li><a href="/user/showfile?faculty_id=${fac.faculty_id}">Show Students Assignments</a></li>
   					<li><a href="/">Logout</a>
   				</ul>
   				</div>
   			</div>		
   		</nav>
+  		<div class="text-center">
+  		<img src="/webjars/img/1.jpg"/ style="float:center"><br>
+  		</div>
+  		<br><br>
 <form id="file" action="showfiles">
-                          <label>Choose Subject to display assignment for that subject</label>
+                          <label style="margin-left:40px;">Choose Subject to display assignment for that subject</label>
                            <select name="course_id" id="file">
                           <c:forEach var="item" items="${c}">
                             <option value="${item.courseId}">${item.courseId}</option>
@@ -61,16 +65,20 @@
 									<td>${item.course_id}</td>
 									<td><a href="/studentfile/download?id=${item.assignment_id}">${item.doc_name}</a></td>
 									<td>${item.uploadtime}</td>
-									<form action="grade">
-									<td><input type="text" name="grade" required/>
-									<td><input type="submit" name="Submit"/>
-									<td><input type="hidden" value="${item.student_prn}"name="student_prn"/>
-									<td><input type="hidden" value="${item.course_id}" name="course_id"/>
+									<form  action="grade" id="gradeupload" >
+									<td><select name="grade" id="gradeuplaod"><option value="A">A</option>
+									     <option value="B">B</option>
+									     <option value="C">C</option>
+									     <option value="D">D</option>
+									     </select></td>
+									<td><input type="submit" name="Submit"/></td>
+									<td><input type="hidden" value="${item.student_prn}" name="student_prn"/> </td>
+									<td><input type="hidden" value="${item.course_id}"  name="course_id"/> </td>
 									</form>	
 								</tr>
 							</c:forEach>
 					</tbody> 
  			</table>
- 			</div>
+ 	</div>
 </body>
 </html>

@@ -23,7 +23,7 @@
   				<div>
   				<ul class="nav navbar-nav navbar-right">
   					<li><a href="/user/assingment?faculty_id=${fac.faculty_id}">Assignments</a></li>
-  					<li><a href="/user/showfile?faculty_id=${fac.faculty_id}">Show Assignments</a></li>
+  					<li><a href="/user/showfile?faculty_id=${fac.faculty_id}">Show Students Assignments</a></li>
   					<li><a href="/">Logout</a>
   				</ul>
   				</div>
@@ -37,23 +37,16 @@
   <div class="col-xs-6">
 	
   </div>
-  <div class="col-xs-6" style="margin-top:10px;">
-  		<form action="notification" method="post">
-  					<textarea placeholder="Add Notification here max 100 words">
-  					</textarea>
-  					<input type="submit" value="AddNotification"/> 					
-  		</form>
-  </div>
   </div>
   
-  
+  <br><br>
 	
  	<div class="container">
  	       <form action="upload" enctype="multipart/form-data" method="post" id="assiform">
 				<table class="table table-bordered table-responsive">
 					<thead>
 					<tr>
-					    <th>enter your id</th>
+					    <th>Enter Your Id</th>
 						<th>Choose a Subject</th>
 						<th>Start Date</th>
 						<th>End Date</th>
@@ -62,7 +55,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					        <td><input type="text"  value ="${fac.faculty_id}" name="faculty_id"/></td>
+					        <td><input type="text"  value ="${fac.faculty_id}" name="faculty_id" disabled/></td>
 					       <td> <label for="grade"></label>
 					        
                           <select name="course_id" id="assiform">
@@ -81,7 +74,5 @@
 			</form>
 				<%--  <input type="submit" value="submit"></input> --%>	
  	</div>
-
- 	
 </body>
 </html>
