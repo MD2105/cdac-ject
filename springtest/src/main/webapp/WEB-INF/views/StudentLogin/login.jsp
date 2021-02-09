@@ -52,7 +52,7 @@
 </form>
 <footer id="footer" >
     <a href="/">Back to Home</a>
-   <span >&copy;CDAC-DAC-FEB-2020 BATCH NO-40</span>
+   
    </footer>
 </body>
 </html>
