@@ -27,7 +27,7 @@
     <p style="font-size: larger; padding: 80px; padding-top: 0%;">As a part of CDAC ,the common issue which most of the student faced was in Assignment Upload and Evaluation.
 
         Not having a specific platform , restricts us from giving as well as receiving the feedback of the assignments 
-        A specific online platform can help us to achieve the solution to this problem so we designed this "Assignment Evaluation System".
+        A specific online platform can help us to achieve the solution to this problem so we designed this "Assignment Evaluation System And Online Compiler".
     </p>
     <hr>
 </body>
